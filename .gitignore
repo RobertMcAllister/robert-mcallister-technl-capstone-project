@@ -1,0 +1,23 @@
+# Audio test files (keep folder, ignore contents)
+testUploadAudio/*
+!testUploadAudio/.gitkeep
+
+# Lambda zips (rebuilt from source)
+*.zip
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Terraform
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
+!*.tfvars.example
+
+# Combined tf (generated)
+terraform-combined.tf
+
+# Claude Code
+.claude/

@@ -1,0 +1,72 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "CloudWatchLogs",
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:us-east-1:<AWS_ACCOUNT_ID>:*"
+    },
+    {
+      "Sid": "S3ReadRawBucket",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::robert-mcallister-raw-audio",
+        "arn:aws:s3:::robert-mcallister-raw-audio/*"
+      ]
+    },
+    {
+      "Sid": "S3WriteTranscriptsAndProcessed",
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::robert-mcallister-raw-audio/raw/*",
+        "arn:aws:s3:::robert-mcallister-raw-audio/transcripts/*",
+        "arn:aws:s3:::robert-mcallister-raw-audio/cleaned/*",
+        "arn:aws:s3:::robert-mcallister-processed/*"
+      ]
+    },
+    {
+      "Sid": "TranscribeJobs",
+      "Effect": "Allow",
+      "Action": [
+        "transcribe:StartTranscriptionJob",
+        "transcribe:GetTranscriptionJob"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "SQSForLater",
+      "Effect": "Allow",
+      "Action": [
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:SendMessage"
+      ],
+      "Resource": "arn:aws:sqs:us-east-1:<AWS_ACCOUNT_ID>:Robert-McAllister-*"
+    },
+    {
+      "Sid": "StepFunctions",
+      "Effect": "Allow",
+      "Action": "states:StartExecution",
+      "Resource": "arn:aws:states:us-east-1:<AWS_ACCOUNT_ID>:stateMachine:Robert-McAllister-*"
+    },
+    {
+      "Sid": "SecretsManager",
+      "Effect": "Allow",
+      "Action": "secretsmanager:GetSecretValue",
+      "Resource": "arn:aws:secretsmanager:us-east-1:<AWS_ACCOUNT_ID>:secret:Robert-McAllister-*"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "Comment": "Audio pipeline: Clean -> Transcribe -> Diarize -> Segment -> Emotions -> Process",
+  "StartAt": "CleanAudio",
+  "States": {
+    "CleanAudio": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:<AWS_ACCOUNT_ID>:function:Robert-McAllister-AudioCleaner",
+      "TimeoutSeconds": 900,
+      "Next": "Transcribe"
+    },
+    "Transcribe": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:<AWS_ACCOUNT_ID>:function:Robert-McAllister-TranscribeStarter",
+      "TimeoutSeconds": 900,
+      "Next": "Diarize"
+    },
+    "Diarize": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:<AWS_ACCOUNT_ID>:function:Robert-McAllister-DiarizeStarter",
+      "TimeoutSeconds": 900,
+      "Next": "Segment"
+    },
+    "Segment": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:<AWS_ACCOUNT_ID>:function:Robert-McAllister-SegmentStarter",
+      "TimeoutSeconds": 900,
+      "Next": "ClassifyEmotions"
+    },
+    "ClassifyEmotions": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:<AWS_ACCOUNT_ID>:function:Robert-McAllister-EmotionClassifier",
+      "TimeoutSeconds": 900,
+      "Next": "Process"
+    },
+    "Process": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:<AWS_ACCOUNT_ID>:function:Robert-McAllister-TranscriptProcessor",
+      "TimeoutSeconds": 120,
+      "End": true
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "InvokeLambdas",
+      "Effect": "Allow",
+      "Action": "lambda:InvokeFunction",
+      "Resource": [
+        "arn:aws:lambda:us-east-1:<AWS_ACCOUNT_ID>:function:Robert-McAllister-AudioCleaner",
+        "arn:aws:lambda:us-east-1:<AWS_ACCOUNT_ID>:function:Robert-McAllister-TranscribeStarter",
+        "arn:aws:lambda:us-east-1:<AWS_ACCOUNT_ID>:function:Robert-McAllister-DiarizeStarter",
+        "arn:aws:lambda:us-east-1:<AWS_ACCOUNT_ID>:function:Robert-McAllister-SegmentStarter",
+        "arn:aws:lambda:us-east-1:<AWS_ACCOUNT_ID>:function:Robert-McAllister-EmotionClassifier",
+        "arn:aws:lambda:us-east-1:<AWS_ACCOUNT_ID>:function:Robert-McAllister-TranscriptProcessor"
+      ]
+    }
+  ]
+}
